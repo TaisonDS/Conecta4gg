@@ -1,5 +1,5 @@
 {
-  "Version": "5.0.2",
+  "Version": "5.0.3",
   "ReleaseNotes": "Conecta4G 3.1.0: configurações por operadora e UUID Xray pessoal. Use o APK 3.1.0 ou superior.",
   "UrlUpdate": "https://raw.githubusercontent.com/TaisonDS/Conecta4gg/refs/heads/main/config.json",
   "CheckUser": "false",

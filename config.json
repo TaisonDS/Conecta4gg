@@ -1,12 +1,12 @@
 {
-  "Version": "1.0.0",
-  "ReleaseNotes": "Nova Atualização Disponível",
-  "UrlUpdate": "https://paste.anasor.com/paste.php?raw&id=",
-  "Sms": "https://paste.anasor.com/paste.php?raw&id=8656",
-  "EmailFeedback": "apolossh@gmail.com",
-  "UrlContato": "https://t.me/apolo_vx",
-  "UrlTermos": "https://kiritosshxd.github.io/Conecta4g_site/termos.html",
-  "CheckUser": "true",
+  "Version": "4.0.1",
+  "ReleaseNotes": "Conecta4G 3.1.0: configurações por operadora e UUID Xray pessoal. Use o APK 3.1.0 ou superior.",
+  "UrlUpdate": "https://taisonds.github.io/Conecta4gg/conecta4g-config-exemplo.json",
+  "CheckUser": "false",
+  "UrlContato": "",
+  "EmailFeedback": "",
+  "UrlTermos": "",
+  "Sms": "",
   "Udp": [
     {
       "Porta": "7300"
@@ -14,67 +14,121 @@
   ],
   "Servers": [
     {
-      "Name": "Servidor BR",
+      "Name": "SSH — Servidor 01 (exemplo)",
       "TYPE": "premium",
       "FLAG": "br.png",
-      "ServerIP": "apolossh.tk",
-      "CheckUser": "http://sua_api",
+      "ServerIP": "ssh.example.com",
       "ServerPort": "22",
       "SSLPort": "443",
+      "CheckUser": "",
       "USER": "",
       "PASS": ""
     }
   ],
   "Networks": [
     {
-      "Name": "Todas as Operadoras",
-      "FLAG": "vivo",
-      "Payload": "GET ws://mobilidade.cloud.caixa.gov.br HTTP/1.1\nHost: [app_host]\nUpgrade: ws\n\n",
-      "SNI": "mobilidade.cloud.caixa.gov.br",
-      "TlsIP": "104.16.56.6",
-      "ProxyIP": "",
-      "ProxyPort": "",
-      "Info": "Tlsws"
-    },
-    {
-      "Name": "VIVO",
-      "FLAG": "vivo",
-      "Payload": "GET / HTTP/1.1[crlf]Host: [app_host][crlf]Upgrade: websocket[crlf][crlf]",
+      "Name": "TIM · SSH direto",
+      "FLAG": "",
+      "Payload": "",
       "SNI": "",
       "TlsIP": "",
-      "ProxyIP": "104.16.57.6",
-      "ProxyPort": "80",
-      "Info": "Proxy"
+      "ProxyIP": "",
+      "ProxyPort": "22",
+      "Info": "Direct",
+      "Operator": "TIM"
     },
     {
-      "Name": "Tim",
-      "FLAG": "tim",
-      "Payload": "GET ws://cdnjs.cloudflare.com HTTP/1.1\nHost: [app_host]\nUpgrade: ws\n\n",
-      "SNI": "cdnjs.cloudflare.com",
-      "TlsIP": "104.16.18.94",
+      "Name": "CLARO · SSH + SSL/TLS",
+      "FLAG": "",
+      "Payload": "",
+      "SNI": "[app_host]",
+      "TlsIP": "",
       "ProxyIP": "",
       "ProxyPort": "",
-      "Info": "Tlsws"
+      "Info": "Ssl",
+      "Operator": "CLARO"
     },
     {
-      "Name": "Claro",
-      "FLAG": "claro",
-      "Payload": "GET ws://no.descomplica.com.br HTTP/1.1\nHost: [app_host]\nUpgrade: ws\n\n",
-      "SNI": "no.descomplica.com.br",
-      "TlsIP": "199.60.103.228",
-      "ProxyIP": "",
-      "ProxyPort": "",
-      "Info": "Tlsws"
-    },
-    {
-      "Name": "Oi",
-      "FLAG": "oi",
-      "Payload": "GET / HTTP/1.1[crlf]Host: [host][crlf]Upgrade: websocket[crlf][crlf]",
+      "Name": "VIVO · SSH + proxy HTTP + payload",
+      "FLAG": "",
+      "Payload": "CONNECT [host_port] HTTP/1.1[crlf]Host: [host_port][crlf]Proxy-Connection: Keep-Alive[crlf][crlf]",
       "SNI": "",
       "TlsIP": "",
-      "ProxyIP": "104.16.56.6",
-      "ProxyPort": "80",
-      "Info": "Proxy"
+      "ProxyIP": "proxy.example.com",
+      "ProxyPort": "8080",
+      "Info": "Proxy",
+      "Operator": "VIVO"
+    },
+    {
+      "Name": "TIM · SSH + SSL + payload",
+      "FLAG": "",
+      "Payload": "GET /ssh HTTP/1.1[crlf]Host: [app_host][crlf]Connection: Upgrade[crlf]Upgrade: websocket[crlf][crlf]",
+      "SNI": "[app_host]",
+      "TlsIP": "[app_host]",
+      "ProxyIP": "",
+      "ProxyPort": "",
+      "Info": "Tlsws",
+      "Operator": "TIM"
+    },
+    {
+      "Name": "CLARO · Proxy + payload com instant_split",
+      "FLAG": "",
+      "Payload": "CONNECT [host_port] HTTP/1.1[crlf][instant_split]Host: [host_port][crlf]Proxy-Connection: Keep-Alive[crlf][crlf]",
+      "SNI": "",
+      "TlsIP": "",
+      "ProxyIP": "proxy.example.com",
+      "ProxyPort": "8080",
+      "Info": "Proxy",
+      "Operator": "CLARO"
+    },
+    {
+      "Name": "VIVO · SSL + payload com rotação",
+      "FLAG": "",
+      "Payload": "GET /ssh HTTP/1.1[crlf]Host: [rotate=edge-a.example.com;edge-b.example.com][crlf]Connection: Upgrade[crlf]Upgrade: websocket[crlf][crlf]",
+      "SNI": "[app_host]",
+      "TlsIP": "[app_host]",
+      "ProxyIP": "",
+      "ProxyPort": "",
+      "Info": "Tlsws",
+      "Operator": "VIVO"
+    }
+  ],
+  "XrayProfiles": [
+    {
+      "Name": "TIM · VLESS + XHTTP + TLS (exemplo)",
+      "Uri": "vless://[UUID]@xray.example.com:443?encryption=none&security=tls&sni=xray.example.com&fp=chrome&type=xhttp&host=xray.example.com&path=%2Fxhttp&mode=auto&alpn=h2#VLESS-XHTTP",
+      "Operator": "TIM",
+      "UseUserUuid": true
+    },
+    {
+      "Name": "CLARO · VLESS + HTTPUpgrade + TLS (exemplo)",
+      "Uri": "vless://[UUID]@xray.example.com:443?encryption=none&security=tls&sni=xray.example.com&vcn=xray.example.com&fp=chrome&type=httpupgrade&host=xray.example.com&path=%2Fhttpupgrade#VLESS-HTTPUpgrade",
+      "Operator": "CLARO",
+      "UseUserUuid": true
+    },
+    {
+      "Name": "VIVO · VLESS + WebSocket + TLS (exemplo)",
+      "Uri": "vless://[UUID]@xray.example.com:443?encryption=none&security=tls&sni=xray.example.com&fp=chrome&type=ws&host=xray.example.com&path=%2Fvless&alpn=http%2F1.1#VLESS-WebSocket",
+      "Operator": "VIVO",
+      "UseUserUuid": true
+    },
+    {
+      "Name": "TIM · VMess + XHTTP + TLS (exemplo)",
+      "Uri": "vmess://[UUID]@vmess.example.com:443?security=tls&sni=vmess.example.com&fp=chrome&type=xhttp&host=vmess.example.com&path=%2Fxhttp&mode=auto&alpn=h2&scy=auto#VMess-XHTTP",
+      "Operator": "TIM",
+      "UseUserUuid": true
+    },
+    {
+      "Name": "CLARO · VMess + WebSocket + TLS (exemplo)",
+      "Uri": "vmess://[UUID]@vmess.example.com:443?security=tls&sni=vmess.example.com&fp=chrome&type=ws&host=vmess.example.com&path=%2Fvmess&alpn=http%2F1.1&scy=auto#VMess-WebSocket",
+      "Operator": "CLARO",
+      "UseUserUuid": true
+    },
+    {
+      "Name": "VIVO · VMess + WebSocket + TLS (exemplo)",
+      "Operator": "VIVO",
+      "UseUserUuid": true,
+      "Uri": "vmess://[UUID]@vmess-vivo.example.com:443?security=tls&sni=vmess-vivo.example.com&type=ws&host=vmess-vivo.example.com&path=%2Fvmess&alpn=http%2F1.1&scy=auto#Vivo-VMess"
     }
   ]
 }
